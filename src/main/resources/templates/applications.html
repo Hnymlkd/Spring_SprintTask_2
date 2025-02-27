@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/taskLayout.html">
+<head>
+    <title>Список заявок</title>
+</head>
+<body>
+<div th:replace="layouts/taskLayout :: navbar"></div>
+<div layout:fragment="secondFragment">
+    <h1 class="mt-3">Список заявок</h1>
+    <div class="row">
+        <div class="col-md-6 mb-3" th:each="app : ${applications}">
+            <div class="card p-3 shadow-sm">
+                <p class="mb-1">
+                    <span th:if="${!app.handled}" class="text-danger fw-bold">*(Новая)</span>
+                    Заявка от <b th:text="${app.userName}"></b>
+                </p>
+                <p class="text-muted mb-1">Курс: <span class="fw-bold" th:text="${app.courseName}"></span></p>
+                <p class="mb-1" th:text="${app.commentary}"></p>
+                <p class="mb-1"><span class="fw-bold">Тел:</span> <span th:text="${app.phone}"></span></p>
+                <p>ID: <span th:text="${app.id}" th:type="hidden"></span></p>
+                <a th:href="@{/applications/details/{id}(id=${app.id})}">Подробнее</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

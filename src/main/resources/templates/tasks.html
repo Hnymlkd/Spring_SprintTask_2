@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layouts/taskLayout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <link href="/css/bootstrap.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="thirdFragment">
+    <a href="/addTask" class="btn btn-primary"> + Add New Task</a>
+</div>
+<div layout:fragment="fourthFragment">
+    <form class="d-flex" role="search" th:action="@{'/search'}" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchValue">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+<div layout:fragment="firstFragment">
+    <div class="col-12">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+    </div>
+</div>
+<div layout:fragment="secondFragment">
+    <table class="table table-striped">
+        <tr>
+            <td>ID</td>
+            <td>NAME</td>
+            <td>DESCRIPTION</td>
+            <td>DEADLINE DATE</td>
+            <td>IS COMPLETED</td>
+            <td>DETAILS</td>
+        </tr>
+        <tr th:each="task: ${tasks}">
+            <td th:text="${task.getId()}"></td>
+            <td th:text="${task.getName()}"></td>
+            <td th:text="${task.getDescription()}"></td>
+            <td th:text="${task.getDeadlineDate()}"></td>
+            <td th:text="${task.isCompleted} ? 'YES' : 'NO'"></td>
+            <td><a th:href="@{'/details/' + ${task.getId()}}">Details</a></td>
+        </tr>
+    </table>
+</div>
+<script src="/js/bootstrap.bundle.js" type="text/javascript"></script>
+</body>
+</html>
